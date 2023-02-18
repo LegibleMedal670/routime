@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class emotionBlock extends StatefulWidget {
-  const emotionBlock({Key? key}) : super(key: key);
+  const emotionBlock({
+    required this.blockName,
+    required this.blockIcon,
+    Key? key,
+  }) : super(key: key);
+
+  final String blockName;
+  final int blockIcon;
 
   @override
   _sliderBlockState createState() => _sliderBlockState();
@@ -48,7 +55,7 @@ class _sliderBlockState extends State<emotionBlock> {
                     width: 10,
                   ),
                   Text(
-                    'Conditions',
+                    widget.blockName,
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
@@ -58,7 +65,10 @@ class _sliderBlockState extends State<emotionBlock> {
               ),
               GestureDetector(
                 //onTap: ,
-                child: Icon(Icons.mood,size: 40,),
+                child: Icon(          //초기엔 mood 아이콘 설정하면 그거로 바꿔주기 3항연산자
+                  Icons.mood,
+                  size: 40,
+                ),
               ),
             ],
           ),

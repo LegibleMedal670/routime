@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/models/blocks/image.dart';
-import 'package:untitled/models/emotion.dart';
-import 'package:untitled/models/running.dart';
-import 'package:untitled/models/slider.dart';
-import 'package:untitled/models/read_book.dart';
-import 'package:untitled/models/weight.dart';
+import 'package:untitled/models/blocks/emotion.dart';
+import 'package:untitled/models/blocks/units.dart';
+import 'package:untitled/models/blocks/slider.dart';
+import 'package:untitled/models/blocks/read_book.dart';
+import 'package:untitled/models/blocks/weight.dart';
 
 class chartPage extends StatefulWidget {
   const chartPage({Key? key}) : super(key: key);
@@ -26,12 +26,12 @@ class _chartPageState extends State<chartPage> {
         crossAxisSpacing: 10,
       ),
       children: [
-        sliderBlock(),
-        readBlock(),
-        runningBlock(),
+        //sliderBlock(),
+        //readBlock(),
+        unitBlock(unit: 'L', blockIcon: 0xf05a2, initValue: null, blockName: 'Water',),
         weightBlock(),
-        emotionBlock(),
-        imageBlock(),
+        emotionBlock(blockIcon: 0xe3ff, blockName: "Today's Imotion",),
+        imageBlock(blockName: '이미쥐', blockIcon: 0xf80d,),
       ],
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/add_widget/blocks/add_slider.dart';
+import 'package:untitled/pages/add_widget/blocks/add_unit.dart';
 
 class analyticsPage extends StatefulWidget {
   const analyticsPage({Key? key}) : super(key: key);
@@ -11,10 +13,7 @@ class _analyticsPageState extends State<analyticsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        '분석',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-      ),
-    );;
+      child: add_unit()
+    );
   }
 }

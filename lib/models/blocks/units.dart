@@ -1,34 +1,29 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:numberpicker/numberpicker.dart';
 
-class imageBlock extends StatefulWidget {
-  const imageBlock({
+
+//넘버피커 수정필요
+
+class unitBlock extends StatefulWidget {
+  const unitBlock({
     required this.blockName,
     required this.blockIcon,
+    double? initValue = 0,
+    required this.unit,
     Key? key,
   }) : super(key: key);
 
   final String blockName;
   final int blockIcon;
+  final String unit;
+  final double? initValue = 0;
 
   @override
-  _imageBlockState createState() => _imageBlockState();
+  _unitBlockState createState() => _unitBlockState();
 }
 
-class _imageBlockState extends State<imageBlock> {
-  File? _image;
-  final picker = ImagePicker();
-
-  //bool isImage = false;
-
-  Future getImage(ImageSource ImageSource) async {
-    final image = await picker.pickImage(source: ImageSource);
-
-    setState(() {
-      _image = File(image!.path);
-    });
-  }
+class _unitBlockState extends State<unitBlock> {
+  int _runnungdistance = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +47,7 @@ class _imageBlockState extends State<imageBlock> {
         ),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.45,
-          height: 212,
+          height: 100,
           child: Column(
             children: [
               SizedBox(
@@ -64,9 +59,7 @@ class _imageBlockState extends State<imageBlock> {
                     width: 10,
                   ),
                   Icon(
-                    IconData(
-                      widget.blockIcon, fontFamily: 'MaterialIcons'
-                    )
+                    IconData(widget.blockIcon, fontFamily: 'MaterialIcons')
                   ),
                   SizedBox(
                     width: 10,
@@ -78,25 +71,32 @@ class _imageBlockState extends State<imageBlock> {
                 ],
               ),
               SizedBox(
-                height: 5,
+                height: 20,
               ),
-              GestureDetector(
-                onTap: () {
-                  getImage(ImageSource.gallery);
-                },
-                child: Container(
-                    alignment: Alignment.center,
-                    color:
-                        _image == null ? Colors.grey[400] : Colors.transparent,
-                    height: 150,
-                    width: 150,
-                    child: _image == null
-                        ? Text('image')
-                        : Image.file(
-                            File(_image!.path),
-                            width: 150,
-                            height: 150,
-                          )),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 30,
+                  ),
+                  NumberPicker(
+                    textStyle: TextStyle(fontSize: 10),
+                    selectedTextStyle:
+                        TextStyle(fontSize: 15, color: Colors.indigoAccent),
+                    itemHeight: 22,
+                    itemWidth: 80,
+                    itemCount: 1,
+                    value: _runnungdistance,
+                    maxValue: 300,
+                    minValue: 0,
+                    onChanged: (value) => setState(() {
+                      _runnungdistance = value;
+                    }),
+                  ),
+                  Text(
+                    widget.unit,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
               ),
             ],
           ),

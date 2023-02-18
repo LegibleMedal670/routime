@@ -7,6 +7,8 @@ import 'package:untitled/pages/group.dart';
 import 'package:untitled/pages/time.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/service/block_data.dart';
 
 void main() {
   initializeDateFormatting('ko_KR', null);
@@ -41,117 +43,126 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.lightGreenAccent
-      ),
-      home: Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            children: [
-              Row(
+    return ChangeNotifierProvider(
+      create: (context) => blockService(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: Colors.lightGreenAccent
+        ),
+        home: GestureDetector(
+          onTap: (){
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Scaffold(
+            drawer: Drawer(
+              child: ListView(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      print('Settings');
-                    },
-                    icon: Icon(Icons.settings),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          print('Settings');
+                        },
+                        icon: Icon(Icons.settings),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          print('Shopping');
+                        },
+                        icon: Icon(Icons.shopping_cart),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          print('Share');
+                        },
+                        icon: Icon(Icons.share),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          print('Edit');
+                        },
+                        icon: Icon(Icons.edit),
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      print('Shopping');
-                    },
-                    icon: Icon(Icons.shopping_cart),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      print('Share');
-                    },
-                    icon: Icon(Icons.share),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      print('Edit');
-                    },
-                    icon: Icon(Icons.edit),
+                  ListTile(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.grey, width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    leading: Icon(Icons.account_circle),
+                    title: Text('My Profile'),
+                    trailing: Text('select'),
                   ),
                 ],
               ),
-              ListTile(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(10),
+            ),
+            appBar: AppBar(
+              title: Text('Routime'),
+              actions: [
+                Row(
+                  children: [
+                    Icon(Icons.edit),
+                    Text('84.7%'),
+                  ],
                 ),
-                leading: Icon(Icons.account_circle),
-                title: Text('My Profile'),
-                trailing: Text('select'),
-              ),
-            ],
+                Row(
+                  children: [
+                    Icon(Icons.model_training),
+                    Text('96.4%'),
+                  ],
+                ),
+              ],
+            ),
+            body: SafeArea(
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.check,
+                      color: Colors.black,
+                    ),
+                    label: 'check'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.schedule,
+                      color: Colors.black,
+                    ),
+                    label: 'schedule'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.pie_chart,
+                      color: Colors.black,
+                    ),
+                    label: 'chart'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.insights,
+                      color: Colors.black,
+                    ),
+                    label: 'insights'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.groups,
+                      color: Colors.black,
+                    ),
+                    label: 'group'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.chat_bubble,
+                      color: Colors.black,
+                    ),
+                    label: 'community'),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
           ),
-        ),
-        appBar: AppBar(
-          title: Text('Routime'),
-          actions: [
-            Row(
-              children: [
-                Icon(Icons.edit),
-                Text('84.7%'),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.model_training),
-                Text('96.4%'),
-              ],
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.check,
-                  color: Colors.black,
-                ),
-                label: 'check'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.schedule,
-                  color: Colors.black,
-                ),
-                label: 'schedule'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.pie_chart,
-                  color: Colors.black,
-                ),
-                label: 'chart'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.insights,
-                  color: Colors.black,
-                ),
-                label: 'insights'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.groups,
-                  color: Colors.black,
-                ),
-                label: 'group'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.chat_bubble,
-                  color: Colors.black,
-                ),
-                label: 'community'),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
         ),
       ),
     );

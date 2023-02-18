@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
 
-class runningBlock extends StatefulWidget {
-  const runningBlock({Key? key}) : super(key: key);
+class sliderBlock extends StatefulWidget {
+  const sliderBlock({
+    required this.blockName,
+    required this.maxSliderValue,
+    required this.blockIcon,
+    Key? key,
+  }) : super(key: key);
+
+  final String blockName;
+  final double maxSliderValue;
+  final int blockIcon;
 
   @override
   _sliderBlockState createState() => _sliderBlockState();
 }
 
-class _sliderBlockState extends State<runningBlock> {
-
-  int _runnungdistance = 0;
+class _sliderBlockState extends State<sliderBlock> {
+  double _currentSliderValue = 0;
+  double? _maxSliderValue; //이것도입력받기
 
   @override
   Widget build(BuildContext context) {
@@ -46,40 +54,31 @@ class _sliderBlockState extends State<runningBlock> {
                     width: 10,
                   ),
                   Icon(
-                    Icons.directions_run,
+                    IconData(widget.blockIcon, fontFamily: 'MaterialIcons')
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
-                    'Running',
+                    widget.blockName,
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20,
+              Slider(
+                activeColor: Colors.grey,
+                inactiveColor: Colors.grey,
+                label: _currentSliderValue.round().toString(),
+                value: _currentSliderValue,
+                onChanged: (double value) {
+                  setState(() {
+                    _currentSliderValue = value;
+                  });
+                },
+                max: widget.maxSliderValue,
+                divisions: widget.maxSliderValue.toInt(),
               ),
-              Row(
-                children: [
-                  SizedBox(width: 30,),
-                  NumberPicker(
-                    textStyle: TextStyle(fontSize: 10),
-                    selectedTextStyle:
-                    TextStyle(fontSize: 15, color: Colors.indigoAccent),
-                    itemHeight: 22,
-                    itemWidth: 80,
-                    itemCount: 1,
-                    value: _runnungdistance,
-                    maxValue: 300,
-                    minValue: 0,
-                    onChanged: (value) => setState(() {
-                      _runnungdistance = value;
-                    }),
-                  ),
-                  Text('km',style: TextStyle(fontSize: 20),),
-                ],
-              ),
+              Text('${_currentSliderValue.toInt()} / ${widget.maxSliderValue.toInt()}'),
             ],
           ),
         ),
@@ -87,6 +86,3 @@ class _sliderBlockState extends State<runningBlock> {
     );
   }
 }
-
-
-//지도연결해서하면조을듯

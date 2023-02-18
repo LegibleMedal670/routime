@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/models/blocks/image.dart';
-import 'package:untitled/models/emotion.dart';
-import 'package:untitled/models/running.dart';
-import 'package:untitled/models/slider.dart';
-import 'package:untitled/models/read_book.dart';
-import 'package:untitled/models/weight.dart';
+import 'package:untitled/models/blocks/emotion.dart';
+import 'package:untitled/models/blocks/units.dart';
+import 'package:untitled/models/blocks/slider.dart';
+import 'package:untitled/models/blocks/read_book.dart';
+import 'package:untitled/models/blocks/weight.dart';
+import 'package:untitled/pages/add_widget/blocks/add_image.dart';
+import 'package:untitled/pages/add_widget/blocks/add_slider.dart';
+import 'package:untitled/pages/add_widget/blocks/add_unit.dart';
+import 'package:untitled/pages/community.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/service/block_data.dart';
 
 class add_widget extends StatefulWidget {
   const add_widget({Key? key}) : super(key: key);
@@ -14,6 +20,8 @@ class add_widget extends StatefulWidget {
 }
 
 class _add_widgetState extends State<add_widget> {
+  String blockName = 'add_widget';
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +42,7 @@ class _add_widgetState extends State<add_widget> {
               ),
             ),
             Text(
-              '과제',
+              '블럭',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18.0,
@@ -42,6 +50,8 @@ class _add_widgetState extends State<add_widget> {
             ),
             TextButton(
               onPressed: () {
+                print(Provider.of<blockService>(context, listen: false)
+                    .blockWidgets);
                 Navigator.pop(context);
               },
               child: Text(
@@ -58,78 +68,127 @@ class _add_widgetState extends State<add_widget> {
           height: 10,
         ),
         Expanded(
-          child: Row(
-            children: [
-              SizedBox(width: 10,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      print('slider');
-                    },
-                    child: AbsorbPointer(
-                      child: sliderBlock(),
-                      absorbing: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      print('run');
-                    },
-                    child: AbsorbPointer(
-                      child: runningBlock(),
-                      absorbing: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      print('image');
-                    },
-                    child: AbsorbPointer(
-                      child: imageBlock(),
-                      absorbing: true,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: 15,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      print('read');
-                    },
-                    child: AbsorbPointer(
-                      child: readBlock(),
-                      absorbing: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      print('weight');
-                    },
-                    child: AbsorbPointer(
-                      child: weightBlock(),
-                      absorbing: true,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      print('emotion');
-                    },
-                    child: AbsorbPointer(
-                      child: emotionBlock(),
-                      absorbing: true,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          )
-        ),
+            child: (blockName == 'add_widget')
+                ? Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                blockName = 'slider';
+                              });
+                              print('slider');
+                            },
+                            child: AbsorbPointer(
+                              child: sliderBlock(
+                                blockIcon: 0xe1e1,
+                                maxSliderValue: 8,
+                                blockName: 'SliderBlock',
+                              ),
+                              absorbing: true,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                blockName = 'unit';
+                              });
+                              print('unit');
+                            },
+                            child: AbsorbPointer(
+                              child: unitBlock(
+                                unit: 'L',
+                                blockIcon: 0xf05a2,
+                                initValue: null,
+                                blockName: 'UnitBlock',
+                              ),
+                              absorbing: true,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                blockName = 'image';
+                              });
+                              print('image');
+                            },
+                            child: AbsorbPointer(
+                              child: imageBlock(
+                                blockName: 'ImageBlock',
+                                blockIcon: 0xf80d,
+                              ),
+                              absorbing: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 45,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print('read');
+                            },
+                            child: AbsorbPointer(
+                              child: readBlock(
+                                blockName: 'ReadBlock',
+                                startPage: 1,
+                                endPage: 200,
+                                blockIcon: 0xe0ef,
+                              ),
+                              absorbing: true,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 45,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print('emotion');
+                            },
+                            child: AbsorbPointer(
+                              child: emotionBlock(
+                                blockIcon: 0xe3ff,
+                                blockName: "EmotionBlock",
+                              ),
+                              absorbing: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : getBlocks(blockName)),
       ],
     );
+  }
+}
+
+Widget getBlocks(blockName) {
+  switch (blockName) {
+    case 'slider':
+      return add_slider();
+    case 'unit':
+      return add_unit();
+    case 'image':
+      return add_image();
+    default:
+      return Center(
+        child: Text(
+          'ERROR!!!!!!!!!!!!',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 123, color: Colors.green),
+        ),
+      );
   }
 }

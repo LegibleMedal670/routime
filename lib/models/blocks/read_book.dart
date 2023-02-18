@@ -2,15 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class readBlock extends StatefulWidget {
-  const readBlock({Key? key}) : super(key: key);
+  const readBlock({
+    required this.blockName,
+    required this.startPage,
+    required this.endPage,
+    required this.blockIcon,
+    Key? key
+  }) : super(key: key);
+
+  final String blockName;
+  final int startPage;
+  final int endPage;
+  final int blockIcon;
+
 
   @override
   _sliderBlockState createState() => _sliderBlockState();
 }
 
 class _sliderBlockState extends State<readBlock> {
-  int _startPage = 1;
-  int _endPage  = 100;
+
+  late int _startPage = widget.startPage;
+  late int _endPage = widget.endPage;
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +59,22 @@ class _sliderBlockState extends State<readBlock> {
                     width: 10,
                   ),
                   Icon(
-                    Icons.menu_book,
+                   IconData(
+                     widget.blockIcon, fontFamily: 'MaterialIcons'
+                   )
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
-                    '인간실격',
+                    widget.blockName,
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   NumberPicker(
@@ -78,7 +95,7 @@ class _sliderBlockState extends State<readBlock> {
                   NumberPicker(
                     textStyle: TextStyle(fontSize: 10),
                     selectedTextStyle:
-                    TextStyle(fontSize: 15, color: Colors.indigoAccent),
+                        TextStyle(fontSize: 15, color: Colors.indigoAccent),
                     itemHeight: 22,
                     itemWidth: 80,
                     itemCount: 1,
