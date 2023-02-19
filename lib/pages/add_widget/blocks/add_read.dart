@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
-class add_image extends StatefulWidget {
-  const add_image({Key? key}) : super(key: key);
+class add_read extends StatefulWidget {
+  const add_read({Key? key}) : super(key: key);
 
   @override
-  _add_imageState createState() => _add_imageState();
+  State<add_read> createState() => _add_readState();
 }
 
-class _add_imageState extends State<add_image> {
-  int defaultIcon = 0xe3fe;
+class _add_readState extends State<add_read> {
+  int defaultIcon = 0xe0ef;
   final _blockNameController = TextEditingController();
+  final _maxValueController = TextEditingController();
+  final _minimunValueController = TextEditingController();
 
   void dispose() {
     _blockNameController.dispose();
+    _maxValueController.dispose();
+    _minimunValueController.dispose();
     super.dispose();
   }
 
@@ -45,6 +49,50 @@ class _add_imageState extends State<add_image> {
         ),
         SizedBox(
           height: 10,
+        ),
+        Row(
+          children: [
+            Text(
+              ' 시작       | ',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            Container(
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.8,
+              child: TextField(
+                controller: _minimunValueController,
+                textAlign: TextAlign.left,
+                decoration: InputDecoration(
+                  //나중에 validation 해줘서 정수만 되게
+                    hintText: '시작 페이지'),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        Row(
+          children: [
+            Text(
+              ' 마지막     | ',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            Container(
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.8,
+              child: TextField(
+                controller: _maxValueController,
+                textAlign: TextAlign.left,
+                decoration: InputDecoration(
+                    hintText: '마지막 페이지'),
+              ),
+            ),
+          ],
         ),
         SizedBox(
           height: 25,

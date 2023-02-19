@@ -1,5 +1,4 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:untitled/pages/add_widget/add_widget.dart';
 import 'package:untitled/models/blocks/image.dart';
 import 'package:untitled/models/blocks/read_book.dart';
@@ -81,7 +80,8 @@ class _communityPageState extends State<communityPage> {
       )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showMaterialModalBottomSheet(
+          showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             builder: (context) => SafeArea(child: add_widget()),
           );

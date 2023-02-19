@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
-class add_image extends StatefulWidget {
-  const add_image({Key? key}) : super(key: key);
+
+class add_emotion extends StatefulWidget {
+  const add_emotion({Key? key}) : super(key: key);
 
   @override
-  _add_imageState createState() => _add_imageState();
+  State<add_emotion> createState() => _add_emotionState();
 }
 
-class _add_imageState extends State<add_image> {
+class _add_emotionState extends State<add_emotion> {
   int defaultIcon = 0xe3fe;
   final _blockNameController = TextEditingController();
 

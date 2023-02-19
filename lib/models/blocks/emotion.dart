@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+
 
 class emotionBlock extends StatefulWidget {
   const emotionBlock({
@@ -15,6 +17,9 @@ class emotionBlock extends StatefulWidget {
 }
 
 class _sliderBlockState extends State<emotionBlock> {
+
+  int defaultIcon = 0xe3fe;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -49,7 +54,9 @@ class _sliderBlockState extends State<emotionBlock> {
                     width: 10,
                   ),
                   Icon(
-                    Icons.mood,
+                      IconData(
+                          widget.blockIcon, fontFamily: 'MaterialIcons'
+                      )
                   ),
                   SizedBox(
                     width: 10,
@@ -64,9 +71,20 @@ class _sliderBlockState extends State<emotionBlock> {
                 height: 15,
               ),
               GestureDetector(
-                //onTap: ,
+                onTap: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  IconData? icon =
+                  await FlutterIconPicker.showIconPicker(
+                      context, iconPackModes: [IconPack.material]);
+                  setState(() {
+                    defaultIcon = icon!.codePoint;
+                  });
+                },
                 child: Icon(          //초기엔 mood 아이콘 설정하면 그거로 바꿔주기 3항연산자
-                  Icons.mood,
+                  IconData(
+                    defaultIcon,
+                    fontFamily: 'MaterialIcons'
+                  ),
                   size: 40,
                 ),
               ),

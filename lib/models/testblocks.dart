@@ -34,7 +34,7 @@ class TestBlock extends StatelessWidget {
                 imgPath,
                 height: 65,
               ),
-              const SizedBox(height: 30.0,),
+              const SizedBox(height: 15.0,),
               Row(
                 children: [
                   Expanded(
@@ -44,7 +44,7 @@ class TestBlock extends StatelessWidget {
                         blockName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 16,
                           color: powerON ? Colors.white : Colors.black,
                         ),
                       ),

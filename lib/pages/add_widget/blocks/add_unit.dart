@@ -11,11 +11,11 @@ class add_unit extends StatefulWidget {
 class _add_unitState extends State<add_unit> {
   int defaultIcon = 0xe3fe;
   final _blockNameController = TextEditingController();
-  final _maxValueController = TextEditingController();
+  final _unitValueController = TextEditingController();
 
   void dispose() {
     _blockNameController.dispose();
-    _maxValueController.dispose();
+    _unitValueController.dispose();
     super.dispose();
   }
 
@@ -60,7 +60,7 @@ class _add_unitState extends State<add_unit> {
                   .size
                   .width * 0.8,
               child: TextField(
-                controller: _maxValueController,
+                controller: _unitValueController,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
                   //나중에 validation 해줘서 정수만 되게
