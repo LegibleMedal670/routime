@@ -10,7 +10,7 @@ import 'package:untitled/pages/add_widget/blocks/add_image.dart';
 import 'package:untitled/pages/add_widget/blocks/add_read.dart';
 import 'package:untitled/pages/add_widget/blocks/add_slider.dart';
 import 'package:untitled/pages/add_widget/blocks/add_unit.dart';
-import 'package:untitled/pages/community.dart';
+import 'package:untitled/pages/main_pages/community.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/service/block_data.dart';
 
@@ -23,6 +23,10 @@ class add_widget extends StatefulWidget {
 
 class _add_widgetState extends State<add_widget> {
   String blockName = 'add_widget';
+
+  // void addSlider(){
+  //   add_slider().createState().add_slider();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +58,29 @@ class _add_widgetState extends State<add_widget> {
               ),
               TextButton(
                 onPressed: () {
-                  print(Provider.of<blockService>(context, listen: false)
-                      .blockWidgets);
+                  switch (blockName){
+                    case 'slider':
+                      //context.read<blockService>().add_slider(add_slider().createState().sliderBlockName, add_slider().createState().sliderMaxValue, add_slider().createState().sliderBlockIcon);
+                      //add_slider().createState().dispose();
+                      print(add_slider().createState().sliderBlockName);
+                      break;
+                    case 'unit' :
+                      print('unit');
+                      break;
+                    case 'read' :
+                      print('read');
+                      break;
+                    case 'emotion' :
+                      print('emotion');
+                      break;
+                    case 'image' :
+                      print('image');
+                      break;
+                    default:
+                      print(context.read<blockService>()
+                          .blockWidgets);
+                  }
+
                   Navigator.pop(context);
                 },
                 child: Text(
@@ -86,7 +111,6 @@ class _add_widgetState extends State<add_widget> {
                                 setState(() {
                                   blockName = 'slider';
                                 });
-                                print('slider');
                               },
                               child: AbsorbPointer(
                                 child: sliderBlock(
@@ -102,7 +126,6 @@ class _add_widgetState extends State<add_widget> {
                                 setState(() {
                                   blockName = 'unit';
                                 });
-                                print('unit');
                               },
                               child: AbsorbPointer(
                                 child: unitBlock(
@@ -119,7 +142,6 @@ class _add_widgetState extends State<add_widget> {
                                 setState(() {
                                   blockName = 'image';
                                 });
-                                print('image');
                               },
                               child: AbsorbPointer(
                                 child: imageBlock(
@@ -145,7 +167,6 @@ class _add_widgetState extends State<add_widget> {
                                 setState(() {
                                   blockName = 'read';
                                 });
-                                print('read');
                               },
                               child: AbsorbPointer(
                                 child: readBlock(
@@ -165,7 +186,6 @@ class _add_widgetState extends State<add_widget> {
                                 setState(() {
                                   blockName = 'emotion';
                                 });
-                                print('emotion');
                               },
                               child: AbsorbPointer(
                                 child: emotionBlock(

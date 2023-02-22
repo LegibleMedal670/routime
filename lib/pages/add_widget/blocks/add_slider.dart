@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/service/block_data.dart';
+
+//개선점 : 최소값이 지금은 0부터 시작으로 고정인데 변경할 수 있도록
 
 class add_slider extends StatefulWidget {
   const add_slider({Key? key}) : super(key: key);
@@ -10,14 +14,19 @@ class add_slider extends StatefulWidget {
 
 class _add_sliderState extends State<add_slider> {
   int defaultIcon = 0xe3fe;
-  final _blockNameController = TextEditingController();
-  final _maxValueController = TextEditingController();
+  final blockNameController = TextEditingController();
+  final maxValueController = TextEditingController();
 
+  @override
   void dispose() {
-    _blockNameController.dispose();
-    _maxValueController.dispose();
+    blockNameController.dispose();
+    maxValueController.dispose();
     super.dispose();
   }
+
+  String get sliderBlockName => blockNameController.text;
+  double get sliderMaxValue => double.parse(maxValueController.text);
+  int get sliderBlockIcon => defaultIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,10 @@ class _add_sliderState extends State<add_slider> {
                   .size
                   .width * 0.8,
               child: TextField(
-                controller: _blockNameController,
+                onChanged: (newText){
+                  String testText = newText;
+                },
+                controller: blockNameController,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(hintText: '블럭 이름'),
               ),
@@ -60,7 +72,7 @@ class _add_sliderState extends State<add_slider> {
                   .size
                   .width * 0.8,
               child: TextField(
-                controller: _maxValueController,
+                controller: maxValueController,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
                   //나중에 validation 해줘서 정수만 되게
@@ -86,8 +98,9 @@ class _add_sliderState extends State<add_slider> {
                       context, iconPackModes: [IconPack.material]);
                   setState(() {
                     defaultIcon = icon!.codePoint;
+
                   });
-                  print(defaultIcon);
+                  print(blockNameController.text);
                 },
                 child: Text('아이콘 선택')),
           ],
@@ -95,4 +108,12 @@ class _add_sliderState extends State<add_slider> {
       ],
     );
   }
+
+
+
+  // void add_slider() =>
+  //     context
+  //         .read<blockService>()
+  //         .add_slider(blockNameController.text,double.parse(maxValueController.text),defaultIcon);
+
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
+//개선점 : 텍스트필드에서 선택으로 변경
+
 class add_read extends StatefulWidget {
   const add_read({Key? key}) : super(key: key);
 

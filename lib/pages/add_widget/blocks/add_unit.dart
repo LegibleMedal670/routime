@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
+//개선점 : 단위 고르는 부분을 텍스트필드가 아닌 선택으로 변경하기
+
 class add_unit extends StatefulWidget {
   const add_unit({Key? key}) : super(key: key);
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
+//개선점 : 아이콘 선택 버튼을 텍스트버튼에서 아이콘버튼으로 변경하여 바꾸면 보이게
+
 class add_image extends StatefulWidget {
   const add_image({Key? key}) : super(key: key);
 

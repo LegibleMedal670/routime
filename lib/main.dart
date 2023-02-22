@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/pages/analytics.dart';
-import 'package:untitled/pages/chart.dart';
-import 'package:untitled/pages/ckeck.dart';
-import 'package:untitled/pages/community.dart';
-import 'package:untitled/pages/group.dart';
-import 'package:untitled/pages/time.dart';
+import 'package:untitled/pages/main_pages/analytics.dart';
+import 'package:untitled/pages/main_pages/chart.dart';
+import 'package:untitled/pages/main_pages/ckeck.dart';
+import 'package:untitled/pages/main_pages/community.dart';
+import 'package:untitled/pages/main_pages/group.dart';
+import 'package:untitled/pages/main_pages/time.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
+//개선점 : 텍스트버튼을 아이콘버튼으로 변경하여 바꿀 때 마다 보이도록
+
 
 class add_emotion extends StatefulWidget {
   const add_emotion({Key? key}) : super(key: key);
