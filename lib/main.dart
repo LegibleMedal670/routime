@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:untitled/pages/main_pages/analytics.dart';
+import 'package:untitled/pages/main_pages/community.dart';
 import 'package:untitled/pages/main_pages/chart.dart';
 import 'package:untitled/pages/main_pages/ckeck.dart';
-import 'package:untitled/pages/main_pages/community.dart';
 import 'package:untitled/pages/main_pages/group.dart';
 import 'package:untitled/pages/main_pages/time.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:untitled/service/block_data.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   initializeDateFormatting('ko_KR', null);
@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             drawer: Drawer(
               child: ListView(
                 children: [

@@ -1,11 +1,10 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:untitled/pages/add_widget/add_widget.dart';
-import 'package:untitled/models/blocks/image.dart';
 import 'package:untitled/models/blocks/read_book.dart';
 import 'package:untitled/models/blocks/emotion.dart';
-import 'package:untitled/models/blocks/units.dart';
 import 'package:untitled/models/blocks/slider.dart';
-import 'package:untitled/models/blocks/weight.dart';
+import 'package:untitled/models/blocks/units.dart';
+import 'package:untitled/models/blocks/image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -33,57 +32,53 @@ class _communityPageState extends State<communityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          //padding: EdgeInsets.only(left: 100, right: 100),
-          child: Column(
+      body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  date = date.subtract(Duration(days: 1));
-                  setState(() {
-                    formatDate = DateFormat.MMMEd('ko').format(date);
-                  });
-                  print(date);
-                },
-                icon: Icon(Icons.arrow_left),
-                iconSize: 50,
-              ),
-              Text(formatDate),
-              IconButton(
-                onPressed: () {
-                  date = date.add(Duration(days: 1));
-                  setState(() {
-                    formatDate = DateFormat.MMMEd('ko').format(date);
-                  });
-                  print(date);
-                },
-                icon: Icon(Icons.arrow_right),
-                iconSize: 50,
-              ),
-            ],
-          ),
-          Expanded(
-              child: MasonryGridView.builder(
-            crossAxisSpacing: 3,
-            mainAxisSpacing: 10,
-            itemCount: testWidgets.length,
-            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            itemBuilder: (context, index) {
-              return testWidgets[index];
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            onPressed: () {
+              date = date.subtract(Duration(days: 1));
+              setState(() {
+                formatDate = DateFormat.MMMEd('ko').format(date);
+              });
             },
-          )),
+            icon: Icon(Icons.arrow_left),
+            iconSize: 50,
+          ),
+          Text(formatDate),
+          IconButton(
+            onPressed: () {
+              date = date.add(Duration(days: 1));
+              setState(() {
+                formatDate = DateFormat.MMMEd('ko').format(date);
+              });
+            },
+            icon: Icon(Icons.arrow_right),
+            iconSize: 50,
+          ),
         ],
+      ),
+      Expanded(
+          child: MasonryGridView.builder(
+        crossAxisSpacing: 3,
+        mainAxisSpacing: 10,
+        itemCount: testWidgets.length,
+        gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2),
+        itemBuilder: (context, index) {
+          return testWidgets[index];
+        },
       )),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (context) => SafeArea(child: add_widget()),
+            builder: (context) => add_widget(),
           );
         },
         child: Icon(Icons.add),

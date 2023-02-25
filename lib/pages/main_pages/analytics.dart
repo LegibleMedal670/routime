@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:untitled/pages/add_widget/blocks/add_slider.dart';
 import 'package:untitled/pages/add_widget/blocks/add_unit.dart';
+import 'package:flutter/material.dart';
 
 class analyticsPage extends StatefulWidget {
   const analyticsPage({Key? key}) : super(key: key);

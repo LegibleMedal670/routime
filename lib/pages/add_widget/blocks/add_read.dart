@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/service/block_data.dart';
 
 //개선점 : 텍스트필드에서 선택으로 변경
 
@@ -23,10 +25,49 @@ class _add_readState extends State<add_read> {
     super.dispose();
   }
 
+  String readName = 'read';
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                '취소',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+            Text(
+              readName,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18.0,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                add_read();
+                Navigator.pop(context);
+              },
+              child: Text(
+                '추가',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+          ],
+        ),
         SizedBox(
           height: 10,
         ),
@@ -122,4 +163,8 @@ class _add_readState extends State<add_read> {
       ],
     );
   }
+
+  void add_read() =>
+      context.read<blockService>().add_read(
+          _blockNameController.text, int.parse(_minimunValueController.text), int.parse(_maxValueController.text), defaultIcon);
 }

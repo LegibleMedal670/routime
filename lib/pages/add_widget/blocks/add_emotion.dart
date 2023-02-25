@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/service/block_data.dart';
 
 //개선점 : 텍스트버튼을 아이콘버튼으로 변경하여 바꿀 때 마다 보이도록
-
 
 class add_emotion extends StatefulWidget {
   const add_emotion({Key? key}) : super(key: key);
@@ -20,10 +21,49 @@ class _add_emotionState extends State<add_emotion> {
     super.dispose();
   }
 
+  String emotionName = 'emotion';
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                '취소',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+            Text(
+              emotionName,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18.0,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                add_emotion();
+                Navigator.pop(context);
+              },
+              child: Text(
+                '추가',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+          ],
+        ),
         SizedBox(
           height: 10,
         ),
@@ -34,10 +74,7 @@ class _add_emotionState extends State<add_emotion> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
             Container(
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.8,
               child: TextField(
                 controller: _blockNameController,
                 textAlign: TextAlign.left,
@@ -61,9 +98,9 @@ class _add_emotionState extends State<add_emotion> {
             TextButton(
                 onPressed: () async {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  IconData? icon =
-                  await FlutterIconPicker.showIconPicker(
-                      context, iconPackModes: [IconPack.material]);
+                  IconData? icon = await FlutterIconPicker.showIconPicker(
+                      context,
+                      iconPackModes: [IconPack.material]);
                   setState(() {
                     defaultIcon = icon!.codePoint;
                   });
@@ -75,4 +112,8 @@ class _add_emotionState extends State<add_emotion> {
       ],
     );
   }
+
+  void add_emotion() => context
+      .read<blockService>()
+      .add_image(_blockNameController.text, defaultIcon);
 }

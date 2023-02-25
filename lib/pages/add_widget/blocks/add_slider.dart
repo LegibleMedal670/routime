@@ -1,18 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 import 'package:untitled/service/block_data.dart';
+import 'package:provider/provider.dart';
 
 //개선점 : 최소값이 지금은 0부터 시작으로 고정인데 변경할 수 있도록
 
 class add_slider extends StatefulWidget {
-  const add_slider({Key? key}) : super(key: key);
+  add_slider({Key? key}) : super(key: key);
 
   @override
   _add_sliderState createState() => _add_sliderState();
 }
 
 class _add_sliderState extends State<add_slider> {
+
+  String sliderName = 'slider';
+
+
   int defaultIcon = 0xe3fe;
   final blockNameController = TextEditingController();
   final maxValueController = TextEditingController();
@@ -32,6 +36,43 @@ class _add_sliderState extends State<add_slider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                '취소',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+            Text(
+              sliderName,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18.0,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                add_slider();
+                Navigator.pop(context);
+              },
+              child: Text(
+                '추가',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+          ],
+        ),
         SizedBox(
           height: 10,
         ),
@@ -48,7 +89,9 @@ class _add_sliderState extends State<add_slider> {
                   .width * 0.8,
               child: TextField(
                 onChanged: (newText){
-                  String testText = newText;
+                  setState(() {
+                    sliderName = newText;
+                  });
                 },
                 controller: blockNameController,
                 textAlign: TextAlign.left,
@@ -98,7 +141,6 @@ class _add_sliderState extends State<add_slider> {
                       context, iconPackModes: [IconPack.material]);
                   setState(() {
                     defaultIcon = icon!.codePoint;
-
                   });
                   print(blockNameController.text);
                 },
@@ -109,11 +151,9 @@ class _add_sliderState extends State<add_slider> {
     );
   }
 
-
-
-  // void add_slider() =>
-  //     context
-  //         .read<blockService>()
-  //         .add_slider(blockNameController.text,double.parse(maxValueController.text),defaultIcon);
+   void add_slider() =>
+       context
+           .read<blockService>()
+           .add_slider(blockNameController.text,double.parse(maxValueController.text),defaultIcon);
 
 }
